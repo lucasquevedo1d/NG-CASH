@@ -2,21 +2,28 @@ export class User {
     constructor(
         private id:string,
         private username: string,
-        private password: string
+        private password: string,
+        private accountId:string
         ) {}
 
-        // public getId = () =>{
-        //     this.id
-        // }
+        public getId = () =>{
+           return this.id
+        }
 
-        // public getUsername = () =>{
-        //     this.username
-        // }
-        // public getPassword = () =>{
-        //     this.password
-        // }
+        public getUsername = () =>{
+           return this.username
+        }
+        public getPassword = () =>{
+           return this.password
+        }
+
+        public getAccountId = () =>{
+         return this.accountId
+      }
+       
+
         static toUserModel(index:any): User{
-            return new User(index.id, index.username, index.password)
+            return new User(index.id, index.username, index.password, index.accountId)
         }
 
 }
