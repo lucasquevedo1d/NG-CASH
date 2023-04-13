@@ -7,22 +7,18 @@ import { User } from "../model/User";
 import { Authenticator } from "../services/Authenticator";
 import { HashManager } from "../services/HashManager";
 import { IdGenerator } from "../services/IdGenerator";
-import { signupInputDTO } from "../types/TypeUser";
+import { getAllUsers, signupInputDTO } from "../types/TypeUser";
 
 export class UserBusiness {
+    constructor(
+        private idGenerator: IdGenerator,
+        private hashManager: HashManager,
+        private tokenGenerator: Authenticator,
+        private userDataBase: UserdataBase
+    ){}
      signupBusiness = async (input:signupInputDTO)  => {
+       try {
         const{username, password} = input
-        
-        //const maiusculas = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","X","Z","W","y"]
-       
-
-       
-        // const senhaTotal = `${password}${maiusculas[0]}`
-        // console.log(senhaTotal)
-        // if(!senhaTotal){
-        //     throw new Error("A senha deve conter pelo o menos uma letra maiuscula");
-        // }
-
 
         if(!username || !password){
             throw new Error("Preencha todos os campos");
@@ -38,20 +34,21 @@ export class UserBusiness {
         }
 
         const findUser = await new UserdataBase().findbyName(username)
+        console.log("findUser", findUser)
         if(findUser){
             throw new Error("Usuário já cadstrado!");
         }
 
         const balance = 100
 
-        const accountId = await new IdGenerator().generator()
+        const accountId = await this.idGenerator.generator()
 
-        const transitionId = await new IdGenerator().generator()
+        const transitionId = await this.idGenerator.generator()
 
 
 
-        const id = await new IdGenerator().generator()
-        const hash = await new HashManager().createHash(password) 
+        const id = await this.idGenerator.generator()
+        const hash = await this.hashManager.createHash(password) 
 
         const insertTransition = new Transictions(transitionId, accountId, accountId, balance)
         const insertAccount = new Account(accountId, balance)
@@ -62,7 +59,7 @@ export class UserBusiness {
 
         await new TrasictionsDataBase().createTransiction(insertTransition)
 
-        const createUser = await new UserdataBase().insertUser(insertUser) 
+        const createUser = await this.userDataBase.insertUser(insertUser) 
         
         if(!createUser){
             const id2 = await new AccountDataBase().findbyId(accountId)
@@ -72,33 +69,64 @@ export class UserBusiness {
         }
 
 
-        const token = await new Authenticator().generate(id) 
+        const token = await this.tokenGenerator.generate(id) 
 
         return token
+        
+       } catch (error:any) {
+        throw new Error(error.message || error.sqlMessage);
+        
+       }
+        
     }
 
     loginBusiness = async (input:signupInputDTO) =>{
-        const{username, password} = input
+        try {
+            
+            const{username, password} = input
 
         if(!username || !password){
             throw new Error("Preencha todos os campos");
         }
 
-        const findName =  await new UserdataBase().findbyName(username) 
+        const findName =  await this.userDataBase.findbyName(username) 
 
         if(!findName){
             throw new Error("Usuário não encontrado");
         }
         
-        const correctPass = await new HashManager().compareHash(password, findName.getPassword() as string) 
+        const correctPass = await this.hashManager.compareHash(password, findName.getPassword() as string) 
 
         if(!correctPass){
             throw new Error("Senha incorreta");
         }
 
-        const token = await new Authenticator().generate(findName.getId())
+        const token = await this.tokenGenerator.generate(findName.getId())
         return token
 
+        } catch (error:any) {
+            throw new Error(error.message || error.sqlMessage);
+
+        }
+        
+
+    }
+
+    GetAllUserBusiness = async (params:string) =>{
+        try {
+            const auth = params
+
+            if(!auth){
+                throw new Error("É necessário estar logado para ter acesso");
+            }
+              
+
+            const result = await this.userDataBase.findAllUsers()
+        return result
+            
+        } catch (error:any) {
+            throw new Error(error.message || error.sqlMessage);
+        }
     }
 
 

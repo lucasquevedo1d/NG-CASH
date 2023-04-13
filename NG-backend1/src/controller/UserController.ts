@@ -1,6 +1,10 @@
 import { Request, Response } from "express";
 import { UserBusiness } from "../business/UserBusiness";
-import { signupInputDTO } from "../types/TypeUser";
+import UserdataBase from "../data/UserdataBase";
+import { Authenticator } from "../services/Authenticator";
+import { HashManager } from "../services/HashManager";
+import { IdGenerator } from "../services/IdGenerator";
+import { getAllUsers, signupInputDTO } from "../types/TypeUser";
 
 export class Usercontroller {
      signup = async (req:Request, res:Response) =>{
@@ -12,7 +16,7 @@ export class Usercontroller {
                 password
             }
     
-            const token = await new UserBusiness().signupBusiness(input)
+            const token = await new UserBusiness(new IdGenerator(),new HashManager(), new Authenticator(),new UserdataBase()).signupBusiness(input)
             res.status(201).send({message: "Usuário criado com sucesso!",token:token})
         } catch (error:any) {
             res.status(500).send({message: error.message})
@@ -27,11 +31,23 @@ export class Usercontroller {
                 username,
                 password
             }
-            const token = await new UserBusiness().loginBusiness(input)
+            const token = await new UserBusiness(new IdGenerator(),new HashManager(), new Authenticator(),new UserdataBase()).loginBusiness(input)
             res.status(201).send({message: "Usuário logado com sucesso!",token:token})
         } catch (error:any) {
-            res.status(500).send({message: error.message})
+            res.status(404).send({message: error.message})
 
+        }
+    }
+
+    getAllUser = async(req:Request, res:Response) =>{
+        try {
+            const auth = req.headers.authorization as string
+            
+            const result = await new UserBusiness(new IdGenerator(), new HashManager(), new Authenticator(), new UserdataBase()).GetAllUserBusiness(auth)
+            res.status(202).send({message:result})
+            
+        } catch (error:any) {
+            res.status(404).send({message:error.message})
         }
     }
 }

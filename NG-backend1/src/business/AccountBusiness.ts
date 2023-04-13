@@ -4,12 +4,20 @@ import UserdataBase from "../data/UserdataBase";
 import Transictions from "../model/Transictions";
 // import Transitions from "../model/Transictions";
 import { Authenticator } from "../services/Authenticator";
+import { HashManager } from "../services/HashManager";
 import { IdGenerator } from "../services/IdGenerator";
 import { postBalance, postBalanceDTO } from "../types/TypeAccountDTO";
 
 export default class AccountBusiness{
+    constructor(
+        private idGenerator: IdGenerator,
+        private hashManager: HashManager,
+        private tokenGenerator: Authenticator,
+        private userDataBase: UserdataBase
+    ){}
     getAccountById = async (index:any)=>{
-        const {auth, id} = index
+       const {auth, id} = index
+
         if(!auth || !id ){
             throw new Error("Ação não permitida verifique se está logado corretamente!");
         }
@@ -49,9 +57,9 @@ export default class AccountBusiness{
         if(availableBalance < 0){
             throw new Error("Saldo insufuciente");
         }
-        const findUsername = await new UserdataBase().findbyName(username)
+        const findUsername = await this.userDataBase.findbyName(username)
         
-        const findAccount = await new AccountDataBase().findbyId(findUsername.getAccountId())
+        const findAccount = await new AccountDataBase().findbyId(findUsername.getAccountId()) 
 
         const cashIn = findAccount.getBalance() + balance
 
@@ -69,7 +77,7 @@ export default class AccountBusiness{
             
         }
 
-        const verifyAuth = await new Authenticator().getTokenData(auth)
+        const verifyAuth = await this.tokenGenerator.getTokenData(auth)
         
         if (!verifyAuth) {
             throw new Error("Usuário precisa estar logado!")
@@ -81,12 +89,15 @@ export default class AccountBusiness{
             balance:cashIn
         }
 
+
         const debit:postBalance = {
             id:accountId,
             auth,
             balance:availableBalance
         }
-        const transitionId = await new IdGenerator().generator()
+
+
+        const transitionId = await this.idGenerator.generator()
         const insertTransition = new Transictions(transitionId, accountId, findAccount.getId(), balance)
 
         const result = await new AccountDataBase().putAccount(post)
@@ -100,7 +111,7 @@ export default class AccountBusiness{
             throw new Error("Erro na transeferencia!");
             
         }
-        console.log("result",result)
+        
         return result
     }
 }

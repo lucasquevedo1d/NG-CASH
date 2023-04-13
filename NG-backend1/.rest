@@ -3,7 +3,7 @@ Content-Type:application/json
 
 
 {
-    "username":"João",
+    "username":"Lucas",
     "password": "12345678"
 }
 
@@ -15,9 +15,17 @@ Content-Type:application/json
 
 
 {
-    "username":"Lucas",
+    "username":"Patrick",
     "password": "12345678"
 }
+
+
+###
+GET http://localhost:3003/getAllUser
+Content-Type:application/json
+Authorization: {{token}}
+
+
 
 ###
 @token = {{login.response.body.token}}
@@ -27,15 +35,19 @@ Authorization: {{token}}
 
 
 {
- "accountId":"2ce052a3-c34a-4a63-b7f7-24e3a0b94da4",
+ "accountId":"9c2efabb-0e21-4c97-b33a-0ee44721f5ee",
  "username":"Lucas",
- "balance":38
+ "balance":6
 }
 
+
+
 ###
-GET http://localhost:3003/balance/70da8ca7-2eda-4df6-8e69-a6b032e86024
+GET http://localhost:3003/balance/9c2efabb-0e21-4c97-b33a-0ee44721f5ee
 Content-Type:application/json
 Authorization: {{token}}
+
+
 
 ###
 GET http://localhost:3003/transiction
@@ -46,6 +58,8 @@ Authorization: {{token}}
     "username":"Lucas"
 }
 
+
+
 ###
 GET http://localhost:3003/debitTransiction
 Content-Type:application/json
@@ -55,8 +69,9 @@ Authorization: {{token}}
     "username":"Lucas"
 }
 
-###
 
+
+###
 GET http://localhost:3003/creditTransiction
 Content-Type:application/json
 Authorization: {{token}}
