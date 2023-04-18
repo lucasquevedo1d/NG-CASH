@@ -35,10 +35,12 @@ export default class AccountBusiness{
 
     putAccountBusiness = async (index:postBalanceDTO) =>{
         const{accountId, auth, username, balance} = index
+        console.log(index)
 
-        if(!auth || !username || !balance){
+        if(!accountId || !auth || !username || !balance){
             throw new Error("Preencha todos os campos corratamante");
         }
+
 
         if(!username){
             throw new Error("Usuário deve passar o id");

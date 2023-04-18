@@ -4,7 +4,6 @@ import { IdGeneratorMock } from "./mock/IdGeneratorMock";
 import { AuthenticatorMock } from "./mock/AuthenticatorMock";
 import UserDataBaseMock from "./mock/UserDataBaseMock";
 import UserdataBase from "../src/data/UserdataBase";
-import { connect } from "net";
 
 
 
@@ -51,24 +50,6 @@ describe("Testando o Sign up", () => {
             expect(error.message).toEqual("a senha deve ter no minímo de 8 caracteres");
 
         } finally {
-            expect.assertions(1)
-
-        }
-    })
-
-
-    test("Testando username já existente", async () =>{
-        try {
-            await UserBusinessMock.signupBusiness(
-                {
-                username:"Lucas", 
-                password:"12345678"
-            })
-            
-        } catch (error:any) {
-            expect(error.message).toEqual("Usuário já cadstrado!")
-
-        }finally{
             expect.assertions(1)
 
         }

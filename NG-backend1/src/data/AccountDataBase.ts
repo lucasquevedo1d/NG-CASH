@@ -4,7 +4,6 @@ import { BaseDataBase } from "./BaseDatabase";
 
 export default class AccountDataBase extends BaseDataBase{
     insertAccount = async (index:Account) =>{
-        console.log(index)
         const account = await BaseDataBase.connection("Accounts")
         .insert({
             id:index.getId(),
