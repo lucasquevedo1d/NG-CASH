@@ -18,7 +18,6 @@ export default class UserdataBase extends BaseDataBase {
 
     findbyName = async (username: string): Promise<User> => {
         try {
-            // console.log(username)
             const user = await UserdataBase.connection("UsersTrybe")
                 .select("*")
                 .where({ username })

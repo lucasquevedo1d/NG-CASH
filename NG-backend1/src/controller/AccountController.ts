@@ -18,7 +18,6 @@ export default class AccountController {
             }
     
             const result = await new AccountBusiness(new IdGenerator(),new HashManager(), new Authenticator(), new UserdataBase()).getAccountById(input)
-    
             res.status(200).send({ message: result })
         } catch (error:any) {
             res.status(404).send({ message: error.message })

@@ -4,7 +4,7 @@ import UserdataBase from "../data/UserdataBase";
 import { Authenticator } from "../services/Authenticator";
 import { HashManager } from "../services/HashManager";
 import { IdGenerator } from "../services/IdGenerator";
-import { getAllUsers, signupInputDTO } from "../types/TypeUser";
+import { signupInputDTO } from "../types/TypeUser";
 
 export class Usercontroller {
      signup = async (req:Request, res:Response) =>{

@@ -2,7 +2,6 @@ import AccountDataBase from "../data/AccountDataBase";
 import { TrasictionsDataBase } from "../data/TransictionsDataBase";
 import UserdataBase from "../data/UserdataBase";
 import Transictions from "../model/Transictions";
-// import Transitions from "../model/Transictions";
 import { Authenticator } from "../services/Authenticator";
 import { HashManager } from "../services/HashManager";
 import { IdGenerator } from "../services/IdGenerator";
@@ -35,7 +34,6 @@ export default class AccountBusiness{
 
     putAccountBusiness = async (index:postBalanceDTO) =>{
         const{accountId, auth, username, balance} = index
-        console.log(index)
 
         if(!accountId || !auth || !username || !balance){
             throw new Error("Preencha todos os campos corratamante");
