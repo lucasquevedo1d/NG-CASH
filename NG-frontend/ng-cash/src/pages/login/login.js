@@ -29,10 +29,12 @@ const Login = () => {
       password: form.password
     }
 
-    await axios.post(`${BASE_URL}/user`, body)
+    await axios.post(`${BASE_URL}/login`, body)
       .then((res) => {
         window.localStorage.setItem("token", res.data.token)
+        alert(res.data.message)
         console.log(res)
+        clear()
       })
 
       .catch((err) => {

@@ -21,7 +21,6 @@ export default class UserdataBase extends BaseDataBase {
             const user = await UserdataBase.connection("UsersTrybe")
                 .select("*")
                 .where({ username })
-                console.log("user",user)
             return user[0] && User.toUserModel(user[0])
         } catch (error: any) {
             console.log("Erro do findName",error)

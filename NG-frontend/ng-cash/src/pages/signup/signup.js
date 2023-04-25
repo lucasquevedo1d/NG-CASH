@@ -2,104 +2,155 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { ThemeProvider } from '@mui/material/styles';
-import { ButtonTitulo, ButtonVoltar, TituloSignup } from './styled';
+import { ButtonTitulo, ButtonVoltar, Font, LogoImg, TituloSignup } from './styled';
 import theme from '../../constants/Theme';
 import { Paper } from '@mui/material';
 import banco from "../../img/banco.jpg"
+import Header from '../../components/Header/Header';
+import logo from "../../img/NG.cash (2).png"
+import { useNavigate } from 'react-router-dom';
+import UseForm from '../../Hooks/useFrom';
+import axios from 'axios';
+import { BASE_URL } from '../../constants/Url';
+import { goToLogin } from '../router/coordinator';
+
 
 function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit">
-        NG.CASH
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
+    return (
+        <Typography variant="body2" color="text.secondary" align="center" {...props}>
+            <Font>
+                NG.CASH/
+                {new Date().getFullYear()}
+            </Font>
+            {'Copyright © '}
+
+        </Typography>
+    );
 }
 
 export default function SignUp() {
- 
+    const [form, onChange, clear] = UseForm({ username: "", password: "" })
+    const navigate = useNavigate()
 
-  return (
-    <ThemeProvider theme={theme}>
-        {/* <img src={ banco}></img> */}
-        <Paper variant="elevation" elevation={15} sx={{mt:1, mr:50, ml:50, mb:5}}>
-      <Container component="main" maxWidth="xs" sx={{mb:5}}>
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-            <TituloSignup>Cadastrar</TituloSignup>
-          <Box component="form" sx={{ mt: 3 }}>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  variant='standard'
-                  autoComplete="given-name"
-                  name="firstName"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="Nome"
-                  autoFocus
-                />  
-              </Grid>
-              <Grid item xs={12}>
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant='standard'
-                  required
-                  fullWidth
-                  name="password"
-                  label="Senha"
-                  type="password"
-                  id="password"
-                />
-              </Grid>
-            </Grid>
-            <Button
-                  margin="normal"
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt:1, bgcolor: "black", color:'white' }}
-                  color="primary"
-                >
-              <ButtonTitulo>Cadastrar</ButtonTitulo>
-            </Button>
-            <Button
-             type="submit"
-             fullWidth
-             variant="outlined"
-             sx={{mt:1, bgcolor: "white", color:'black' }}
-             color="primary"
-            ><ButtonVoltar>Voltar</ButtonVoltar>
-            </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-              </Grid>
-            </Grid>
-          </Box>
-        </Box>
-        <Copyright sx={{ mt: 9 }} />
-      </Container>
-      </Paper >
-      
-    </ThemeProvider>
-  );
+
+    const onSubmitSignUp = async (event) => {
+        event.preventDefault()
+
+        const body = {
+            username: form.username,
+            password: form.password
+        }
+
+        await axios.post(`${BASE_URL}/user`, body)
+            .then((res) => {
+                window.localStorage.setItem("token", res.data.token)
+                console.log(res)
+                alert(res.data.message)
+                clear()
+            })
+
+            .catch((err) => {
+                console.log(err.response)
+            })
+    }
+
+    return (
+        <ThemeProvider theme={theme} >
+            <Header />
+            <div style={{
+                backgroundImage: `url(${banco})`,
+                height: '130vh',
+                with: '100%',
+                backgroundSize: "cover"
+
+            }}>
+                <br></br>
+                <Paper variant="elevation" elevation={15} sx={{ mr: 65, ml: 65, mb: 5 }}>
+                    <Container component="main" maxWidth="xs" sx={{ mb: 5 }}>
+                        <CssBaseline />
+                        <Box
+                            sx={{
+                                marginTop: 8,
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                            }}
+                        >
+                            <LogoImg src={logo} />
+                            <TituloSignup>Abra a sua conta</TituloSignup>
+                            <Box component="form" sx={{ mt: 3 }} onSubmit={onSubmitSignUp}>
+                                <Grid container spacing={2}>
+                                    <Grid item xs={12}>
+                                        <TextField
+                                            margin="normal"
+                                            required
+                                            fullWidth
+                                            id="name"
+                                            label="Nome"
+                                            name="username"
+                                            autoComplete="name"
+                                            autoFocus
+                                            variant="standard"
+                                            onChange={onChange}
+                                            value={form.username}
+
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                    </Grid>
+                                    <Grid item xs={12}>
+
+                                        <TextField
+                                            margin="normal"
+                                            required
+                                            fullWidth
+                                            name="password"
+                                            label="Senha"
+                                            type="password"
+                                            id="password"
+                                            variant="standard"
+                                            onChange={onChange}
+                                            value={form.password}
+                                        />
+                                    </Grid>
+                                </Grid>                   
+                                <Button
+                                    margin="normal"
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    sx={{ mt: 1, bgcolor: "black", color: 'white' }}
+                                    color="primary"
+                                >
+                                    <ButtonTitulo>Cadastrar</ButtonTitulo>
+                                </Button>
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="outlined"
+                                    sx={{ mt: 1, bgcolor: "white", color: 'black' }}
+                                    color="primary"
+                                    onClick={() => goToLogin(navigate)}
+                                >
+                                    <ButtonVoltar>Voltar</ButtonVoltar>
+                                </Button>
+                                <Grid container justifyContent="flex-end">
+                                    <Grid item>
+                                    </Grid>
+                                </Grid>
+                            </Box>
+                        </Box>
+                        <Copyright sx={{ mt: 9, color: "black" }} />
+                        <br></br>
+                    </Container>
+                </Paper >
+            </div>
+        </ThemeProvider>
+    );
 }
+

@@ -34,7 +34,6 @@ export class UserBusiness {
         }
 
         const findUser = await new UserdataBase().findbyName(username)
-        console.log("findUser", findUser)
         if(findUser){
             throw new Error("Usuário já cadstrado!");
         }
@@ -82,7 +81,6 @@ export class UserBusiness {
 
     loginBusiness = async (input:signupInputDTO) =>{
         try {
-            
             const{username, password} = input
 
         if(!username || !password){
