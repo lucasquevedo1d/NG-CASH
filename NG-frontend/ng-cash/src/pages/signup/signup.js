@@ -11,13 +11,13 @@ import { ButtonTitulo, ButtonVoltar, Font, LogoImg, TituloSignup } from './style
 import theme from '../../constants/Theme';
 import { Paper } from '@mui/material';
 import banco from "../../img/banco.jpg"
-import Header from '../../components/Header/Header';
+import { Header } from '../../components/Header/Header';
 import logo from "../../img/NG.cash (2).png"
 import { useNavigate } from 'react-router-dom';
 import UseForm from '../../Hooks/useFrom';
 import axios from 'axios';
 import { BASE_URL } from '../../constants/Url';
-import { goToLogin } from '../router/coordinator';
+import { goToHome, goToLogin } from '../router/coordinator';
 
 
 function Copyright(props) {
@@ -49,13 +49,13 @@ export default function SignUp() {
         await axios.post(`${BASE_URL}/user`, body)
             .then((res) => {
                 window.localStorage.setItem("token", res.data.token)
-                console.log(res)
                 alert(res.data.message)
                 clear()
+                goToHome(navigate, res.data.accountId)
             })
 
             .catch((err) => {
-                console.log(err.response)
+                alert(err.response.data.message)
             })
     }
 

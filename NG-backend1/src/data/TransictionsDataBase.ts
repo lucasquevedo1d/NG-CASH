@@ -9,6 +9,7 @@ export class TrasictionsDataBase extends BaseDataBase{
         id:params.getId(),
         debitedAccountId:params.getdebitAccountId(),
         creditAccountId:params.getCreditAccountId(),
+        createdAt:params.getCreatedAt(),
         value:params.getValue()
         
     })
@@ -17,6 +18,7 @@ export class TrasictionsDataBase extends BaseDataBase{
    getTransicntionsById = async (params:getTransiction) =>{
         const result = await BaseDataBase.connection("Transactions")
         .select("*")
+        .join("Users10", "Users10.accountId", "debitedAccountId")
         .where("debitedAccountId", params)
         .orWhere("creditAccountId", params)
         return result
@@ -25,6 +27,7 @@ export class TrasictionsDataBase extends BaseDataBase{
     getTransicntionsDebit = async (params:getTransiction) =>{
         const result = await BaseDataBase.connection("Transactions")
         .select("*")
+        .join("Users10", "Users10.accountId", "creditAccountId")
         .where("debitedAccountId", params)
         return result
     }
@@ -32,6 +35,7 @@ export class TrasictionsDataBase extends BaseDataBase{
     getTransicntionsCredit = async (params:getTransiction) =>{
         const result = await BaseDataBase.connection("Transactions")
         .select("*")
+        .join("Users10", "Users10.accountId", "debitedAccountId")
         .where("creditAccountId", params)
         return result
     }

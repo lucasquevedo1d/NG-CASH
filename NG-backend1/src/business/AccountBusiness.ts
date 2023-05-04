@@ -98,7 +98,15 @@ export default class AccountBusiness{
 
 
         const transitionId = await this.idGenerator.generator()
-        const insertTransition = new Transictions(transitionId, accountId, findAccount.getId(), balance)
+
+        const date = new Date()
+        const formatter = Intl.DateTimeFormat("pt-BR",{
+            dateStyle:"short"
+        })
+
+        const transactionDate = formatter.format(date) as any
+
+        const insertTransition = new Transictions(transitionId, accountId, findAccount.getId(), transactionDate, balance)
 
         const result = await new AccountDataBase().putAccount(post)
 

@@ -13,7 +13,7 @@ import UseForm from "../../Hooks/useFrom";
 import theme from "../../constants/Theme";
 import logo from "../../img/NG.cash (2).png"
 import { ButtonLogin, ButtonSignup, LogoImg, Pargraph, TituloLogin } from "./styled";
-import { goToSignup } from "../router/coordinator";
+import { goToHome, goToSignup } from "../router/coordinator";
 import { useNavigate } from "react-router-dom";
 
 
@@ -33,12 +33,12 @@ const Login = () => {
       .then((res) => {
         window.localStorage.setItem("token", res.data.token)
         alert(res.data.message)
-        console.log(res)
         clear()
+        goToHome(navigate, res.data.accountId)
       })
 
       .catch((err) => {
-        console.log(err.response)
+        alert(err.response.data.message)
       })
   }
 

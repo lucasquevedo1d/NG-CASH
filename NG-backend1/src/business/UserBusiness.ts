@@ -38,8 +38,13 @@ export class UserBusiness {
             throw new Error("Usuário já cadstrado!");
         }
 
-        const balance = 100
+        const date = new Date()
+        const formatter = Intl.DateTimeFormat("pt-BR",{
+            dateStyle:"short"
+        })
 
+        const transactionDate = formatter.format(date) as any
+        const balance = 100
         const accountId = await this.idGenerator.generator()
 
         const transitionId = await this.idGenerator.generator()
@@ -49,7 +54,7 @@ export class UserBusiness {
         const id = await this.idGenerator.generator()
         const hash = await this.hashManager.createHash(password) 
 
-        const insertTransition = new Transictions(transitionId, accountId, accountId, balance)
+        const insertTransition = new Transictions(transitionId, accountId, accountId, transactionDate, balance)
         const insertAccount = new Account(accountId, balance)
         
         const insertUser = new User(id, username, hash, accountId)
@@ -70,7 +75,7 @@ export class UserBusiness {
 
         const token = await this.tokenGenerator.generate(id) 
 
-        return token
+        return ({token, accountId})
         
        } catch (error:any) {
         throw new Error(error.message || error.sqlMessage);
@@ -82,6 +87,7 @@ export class UserBusiness {
     loginBusiness = async (input:signupInputDTO) =>{
         try {
             const{username, password} = input
+            
 
         if(!username || !password){
             throw new Error("Preencha todos os campos");
@@ -100,7 +106,8 @@ export class UserBusiness {
         }
 
         const token = await this.tokenGenerator.generate(findName.getId())
-        return token
+        const accountId = findName.getAccountId()
+        return ({token, accountId})
 
         } catch (error:any) {
             throw new Error(error.message || error.sqlMessage);
@@ -122,6 +129,27 @@ export class UserBusiness {
             const result = await this.userDataBase.findAllUsers()
         return result
             
+        } catch (error:any) {
+            throw new Error(error.message || error.sqlMessage);
+        }
+    }
+
+    getUserById = async (index:any) =>{
+        try {
+        const accountId = index
+
+        if(!accountId){
+            throw new Error("ID inválido"); 
+        }
+
+        const findByAccountId = this.userDataBase.findeUserByAccountId(accountId)
+
+
+        if(!findByAccountId){
+            throw new Error("ID não encontrado"); 
+        }
+
+        return findByAccountId
         } catch (error:any) {
             throw new Error(error.message || error.sqlMessage);
         }

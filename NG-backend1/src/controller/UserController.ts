@@ -16,8 +16,8 @@ export class Usercontroller {
                 password
             }
     
-            const token = await new UserBusiness(new IdGenerator(),new HashManager(), new Authenticator(),new UserdataBase()).signupBusiness(input)
-            res.status(201).send({message: "Usuário criado com sucesso!",token:token})
+            const result = await new UserBusiness(new IdGenerator(),new HashManager(), new Authenticator(),new UserdataBase()).signupBusiness(input)
+            res.status(201).send({message: "Usuário criado com sucesso!",token:result.token ,accountId:result.accountId})
         } catch (error:any) {
             res.status(500).send({message: error.message})
         }
@@ -31,8 +31,8 @@ export class Usercontroller {
                 username,
                 password
             }
-            const token = await new UserBusiness(new IdGenerator(),new HashManager(), new Authenticator(),new UserdataBase()).loginBusiness(input)
-            res.status(201).send({message: "Usuário logado com sucesso!",token:token})
+            const result = await new UserBusiness(new IdGenerator(),new HashManager(), new Authenticator(),new UserdataBase()).loginBusiness(input)
+            res.status(201).send({message: "Usuário logado com sucesso!",token:result.token ,accountId:result.accountId})
         } catch (error:any) {
             res.status(404).send({message: error.message})
 
@@ -46,6 +46,23 @@ export class Usercontroller {
             const result = await new UserBusiness(new IdGenerator(), new HashManager(), new Authenticator(), new UserdataBase()).GetAllUserBusiness(auth)
             res.status(202).send({message:result})
             
+        } catch (error:any) {
+            res.status(404).send({message:error.message})
+        }
+    }
+
+    getUserById = async (req:Request, res:Response) =>{
+        try {
+            const auth = req.headers.authorization as string
+            const accountId = req.params
+
+            const index={
+                auth,
+                accountId
+            }
+
+            const result = await new UserBusiness(new IdGenerator(), new HashManager(), new Authenticator(), new UserdataBase()).getUserById(index)
+            res.status(201).send({message:result})
         } catch (error:any) {
             res.status(404).send({message:error.message})
         }

@@ -15,7 +15,7 @@ font-family: 'Russo One', sans-serif;
 font-size: large;
 :hover{
     color: orange;
-    transition: calc(1.5s);
+    transition: calc(0.5s);
 }
 `
 export const ButtonPosition = styled.div`

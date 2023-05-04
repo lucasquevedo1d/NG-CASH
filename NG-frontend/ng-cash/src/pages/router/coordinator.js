@@ -5,3 +5,11 @@ export const goToSignup = (navigate) =>{
 export const goToLogin = (navigate) =>{
     navigate("/")
 }
+
+export const goToHome = (navigate, accountId) =>{
+    navigate(`/home/${accountId}`)
+}
+
+export const goToExtract = (navigate, id) =>{
+    navigate(`/extract/${id}`)
+}

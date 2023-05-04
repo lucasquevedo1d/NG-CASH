@@ -9,7 +9,6 @@ export default class AccountDataBase extends BaseDataBase{
             id:index.getId(),
             balance:index.getBalance()
     })
-    console.log("account", account)
         return account
     }
 

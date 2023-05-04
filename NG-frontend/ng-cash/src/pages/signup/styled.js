@@ -12,7 +12,7 @@ color: white;
 :hover{
     color: orange;
     
-    transition: calc(1.5s);
+    transition: calc(1s);
 }
 `
 
@@ -22,7 +22,7 @@ font-size: smaller;
 color: black;
 :hover{
     color: orange;
-    transition: calc(1.5s);
+    transition: calc(0.5s);
 }
 `
 

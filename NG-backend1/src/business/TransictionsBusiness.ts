@@ -3,7 +3,7 @@ import UserdataBase from "../data/UserdataBase";
 import { Authenticator } from "../services/Authenticator";
 import { HashManager } from "../services/HashManager";
 import { IdGenerator } from "../services/IdGenerator";
-import { transictionByUsername } from "../types/TypeTransiction";
+import { transictionByAccountId, transictionByCredit, transictionBydebit } from "../types/TypeTransiction";
 
 export default class TransictionsBusiness{
     constructor(
@@ -12,17 +12,17 @@ export default class TransictionsBusiness{
         private tokenGenerator: Authenticator,
         private userDataBase: UserdataBase
     ){}
-    getTransictionsByName = async (params:transictionByUsername) =>{
+    getTransictionsByName = async (params:transictionByAccountId) =>{
 
-        const {auth, username} = params
+        const {auth, accountId} = params 
 
 
         if(!auth){
             throw new Error("Você precisa estar logado para realizar essa ação");
         }
 
-        if(!username){
-            throw new Error("Você precisa passar o nome do usuário para essa operação");
+        if(!accountId){
+            throw new Error("Você precisa passar o id do usuário para essa operação");
         }
 
         const verifyAuth = await this.tokenGenerator.getTokenData(auth)
@@ -31,30 +31,28 @@ export default class TransictionsBusiness{
             throw new Error("Usuário precisa estar logado!")
         }
 
-        const getfindUserName = await this.userDataBase.findbyName(username)
+        const getfindUserName = await this.userDataBase.findUserbyId(accountId)
 
         if(!getfindUserName){
             throw new Error("Usuário não encontrado");
         }
 
-        const accountId = getfindUserName.getAccountId() as any
 
-
-       const result = await new TrasictionsDataBase().getTransicntionsById(accountId)
+       const result = await new TrasictionsDataBase().getTransicntionsById(getfindUserName.getAccountId() as any) 
 
         return result
     }
 
-    getTransictionByDebit = async (params:transictionByUsername) =>{
-        const {auth, username} = params
+    getTransictionByDebit = async (params:transictionBydebit) =>{
+        const {auth, debitTransiction} = params
 
-
+        console.log(params)
         if(!auth){
             throw new Error("Você precisa estar logado para realizar essa ação");
         }
 
-        if(!username){
-            throw new Error("Você precisa passar o nome do usuário para essa operação");
+        if(!debitTransiction){
+            throw new Error("Você precisa passar o debitId do usuário para essa operação");
         }
 
         const verifyAuth = await this.tokenGenerator.getTokenData(auth)
@@ -63,7 +61,7 @@ export default class TransictionsBusiness{
             throw new Error("Usuário precisa estar logado!")
         }
 
-        const getfindUserName = await this.userDataBase.findbyName(username)
+        const getfindUserName = await this.userDataBase.findUserbyId(debitTransiction)
 
         if(!getfindUserName){
             throw new Error("Usuário não encontrado");
@@ -78,15 +76,15 @@ export default class TransictionsBusiness{
 
     }
 
-    getTransictionByCredit = async (params:transictionByUsername) =>{
-        const {auth, username} = params
+    getTransictionByCredit = async (params:transictionByCredit) =>{
+        const {auth, creditTransiction} = params
 
 
         if(!auth){
             throw new Error("Você precisa estar logado para realizar essa ação");
         }
 
-        if(!username){
+        if(!creditTransiction){
             throw new Error("Você precisa passar o nome do usuário para essa operação");
         }
 
@@ -96,7 +94,7 @@ export default class TransictionsBusiness{
             throw new Error("Usuário precisa estar logado!")
         }
 
-        const getfindUserName = await this.userDataBase.findbyName(username)
+        const getfindUserName = await this.userDataBase.findUserbyId(creditTransiction)
 
         if(!getfindUserName){
             throw new Error("Usuário não encontrado");

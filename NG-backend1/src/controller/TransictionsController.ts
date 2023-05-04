@@ -4,19 +4,23 @@ import UserdataBase from "../data/UserdataBase";
 import { Authenticator } from "../services/Authenticator";
 import { HashManager } from "../services/HashManager";
 import { IdGenerator } from "../services/IdGenerator";
-import { transictionByUsername } from "../types/TypeTransiction";
+import { transictionByCredit } from "../types/TypeTransiction";
+import { transictionBydebit } from "../types/TypeTransiction";
+import { transictionByAccountId } from "../types/TypeTransiction";
 
 export default class TransictionController {
     getTransitctions = async (req: Request, res: Response) => {
         try {
             const auth = req.headers.authorization as string
 
-            const { username } = req.body
+            const {accountId} = req.params
 
-            const input: transictionByUsername = {
+            const input: transictionByAccountId = {
                 auth,
-                username
+                accountId
             }
+
+            console.log(input)
 
             const result = await new TransictionsBusiness(new IdGenerator(), new HashManager(), new Authenticator(), new UserdataBase()).getTransictionsByName(input)
 
@@ -33,11 +37,11 @@ export default class TransictionController {
         try {
             const auth = req.headers.authorization as string
 
-            const { username } = req.body
+            const { debitTransiction } = req.params
 
-            const input: transictionByUsername = {
+            const input: transictionBydebit = {
                 auth,
-                username
+                debitTransiction
             }
 
             const result = await new TransictionsBusiness(new IdGenerator(), new HashManager(), new Authenticator(), new UserdataBase()).getTransictionByDebit(input)
@@ -54,11 +58,11 @@ export default class TransictionController {
         try {
             const auth = req.headers.authorization as string
 
-            const { username } = req.body
+            const { creditTransiction } = req.params
 
-            const input: transictionByUsername = {
+            const input: transictionByCredit = {
                 auth,
-                username
+                creditTransiction
             }
 
             const result = await new TransictionsBusiness(new IdGenerator(), new HashManager(), new Authenticator(), new UserdataBase()).getTransictionByCredit(input)

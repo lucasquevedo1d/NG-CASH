@@ -15,7 +15,7 @@ font-family: 'Russo One', sans-serif;
 font-size: small;
 :hover{
     color: orange;
-    transition: calc(1.5s);
+    transition: calc(0.5s);
 }
 `
 
@@ -25,7 +25,7 @@ font-size: small;
 color: black;
 :hover{
     color: orange;
-    transition: calc(1.5s);
+    transition: calc(0.5s);
 }
 `
 

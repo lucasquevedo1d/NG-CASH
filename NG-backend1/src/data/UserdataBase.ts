@@ -4,7 +4,7 @@ import { BaseDataBase } from "./BaseDatabase";
 export default class UserdataBase extends BaseDataBase {
 
     insertUser = async (params: User):Promise<User | undefined> => {
-        const user = await UserdataBase.connection("UsersTrybe")
+        const user = await UserdataBase.connection("Users10")
             .insert({
                 id: params.getId(),
                 username: params.getUsername(),
@@ -18,22 +18,21 @@ export default class UserdataBase extends BaseDataBase {
 
     findbyName = async (username: string): Promise<User> => {
         try {
-            const user = await UserdataBase.connection("UsersTrybe")
+            const user = await UserdataBase.connection("Users10")
                 .select("*")
                 .where({ username })
             return user[0] && User.toUserModel(user[0])
         } catch (error: any) {
-            console.log("Erro do findName",error)
             throw new Error(error.message || error.sqlMessage);
 
         }
     }
 
-    findUserbyId = async (id: string): Promise<User| undefined> => {
+    findUserbyId = async (accountId: string): Promise<User| undefined> => {
         try {
-            const user = await UserdataBase.connection("UsersTrybe")
+            const user = await UserdataBase.connection("Users10")
                 .select("*")
-                .where({ id })
+                .where({ accountId })
             return user[0] && User.toUserModel(user[0])
         } catch (error: any) {
             throw new Error(error.message || error.sqlMessage);
@@ -43,8 +42,7 @@ export default class UserdataBase extends BaseDataBase {
 
     findAllUsers = async () => {
         try {
-
-            const result = await BaseDataBase.connection("UsersTrybe")
+            const result = await BaseDataBase.connection("Users10")
                 .select("*")
             return result
 
@@ -55,8 +53,18 @@ export default class UserdataBase extends BaseDataBase {
 
         }
 
-
     }
 
+    findeUserByAccountId = async (accountId:any) =>{
+        try {
+            console.log("find",accountId)
+            const user = await UserdataBase.connection("Users10")
+            .select("*")
+            .where({ accountId })
+        return user[0] && User.toUserModel(user[0])
+        } catch (error:any) {
+            throw new Error(error.message || error.sqlMessage);
+        }
+    }
 
 }

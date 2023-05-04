@@ -7,7 +7,7 @@ import LogoPreto from "../../img/NG-preto.png"
 import { goToLogin } from '../../pages/router/coordinator';
 import { useNavigate } from 'react-router-dom';
 
-export default function ButtonAppBar() {
+export const Header = () => {
   const navigate = useNavigate()
   return (
     <Box sx={{ flexGrow: 1 }}>

@@ -3,6 +3,7 @@ export default class Transictions{
         private id:string,
         private debitedAccountId:string,
         private creditAccountId:string,
+        private createdAt:string,
         private value:number
         
 ){}
@@ -19,11 +20,15 @@ getCreditAccountId = () =>{
     return this.creditAccountId
 }
 
+getCreatedAt = () =>{
+    return this.createdAt
+}
+
 getValue = () =>{
     return this.value
 }
 
 static toUserModel(index:any): Transictions{
-    return new Transictions(index.id, index.debitedAccountId, index.creditAccountId, index.value)
+    return new Transictions(index.id, index.debitedAccountId, index.creditAccountId,index.createdAt, index.value)
 }
 }
