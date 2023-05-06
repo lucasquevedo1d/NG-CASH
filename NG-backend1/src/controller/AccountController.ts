@@ -32,7 +32,7 @@ export default class AccountController {
         try {
             const auth = req.headers.authorization as string
         const { accountId, username, balance } = req.body
-
+            console.log("accountId:", accountId, "username:",username, "balance:",balance)
         const post: postBalanceDTO = {
             accountId,
             auth,

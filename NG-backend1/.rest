@@ -68,7 +68,7 @@ Authorization: {{token}}
 
 
 ###
-GET http://localhost:3003/creditTransiction/8ba00ec4-5588-4c94-bc39-35045c6b49fa
+GET http://localhost:3003/creditTransiction/e87e06f7-7722-4f7c-b7ac-09b610be86ac
 Content-Type:application/json
 Authorization: {{token}}
 

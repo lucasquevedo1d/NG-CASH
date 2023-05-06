@@ -58,6 +58,11 @@ export default class AccountBusiness{
             throw new Error("Saldo insufuciente");
         }
         const findUsername = await this.userDataBase.findbyName(username)
+
+        if(findUsername.getAccountId() === accountId){
+            throw new Error("Usuário não pode mandar dinheiro pra si mesmo");
+            
+        }
         
         const findAccount = await new AccountDataBase().findbyId(findUsername.getAccountId()) 
 

@@ -6,7 +6,7 @@ import Container from '@mui/material/Container';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../../constants/Theme';
 import { Button, Paper, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
-import predio from "../../img/predio.jpg"
+import city from "../../img/skyline.jpg"
 import { Header } from '../../components/Header/Header';
 import logo from "../../img/NG.cash (2).png"
 import { BASE_URL } from '../../constants/Url';
@@ -68,8 +68,8 @@ export const Extract = () => {
         <ThemeProvider theme={theme} >
             <Header />
             <div style={{
-                backgroundImage: `url(${predio})`,
-                height: '160vh',
+                backgroundImage: `url(${city})`,
+                minHeight: '170vh',
                 with: '100%',
                 backgroundSize: "cover"
 
@@ -89,7 +89,7 @@ export const Extract = () => {
                             <LogoImg src={logo} />
                             <TitleExtract>Extrato</TitleExtract>
                             <Box component="form" sx={{ mt: 3 }} >
-                                <Grid container spacing={2}>
+                                <Grid container spacing={4}>
                                     <Grid item xs={12}>
                                         <SubTitleExtract>Entradas</SubTitleExtract>
                                         <Table size="small">
@@ -130,11 +130,12 @@ export const Extract = () => {
                                             </TableBody>
                                         </Table>
                                     </Grid>
-                                    <Grid item xs={12}>
+                                     <Grid item xs={12}>
                                     </Grid>
                                     <Grid item xs={12}>
-                                    </Grid>
+                                    </Grid> 
                                 </Grid>
+                                <br></br>
                                 <Button fullWidth variant='contained' sx={{ mb: 2 }} onClick={() => goToHome(navigate, params.id)}><BackButton>Voltar</BackButton></Button>
                                 <Grid container justifyContent="flex-end">
                                     <Grid item>

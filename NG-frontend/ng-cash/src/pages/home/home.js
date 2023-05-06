@@ -16,7 +16,7 @@ import { BASE_URL } from '../../constants/Url';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useProtectPage } from '../../Hooks/useProtectPage';
-import { goToExtract } from '../router/coordinator';
+import { goToExtract, goToPayment } from '../router/coordinator';
 import { Copyright } from '../../components/Copyright/Copyright';
 
 
@@ -78,12 +78,7 @@ export const Home = () => {
                             <Grid container spacing={2}>
                                 <Grid item xs={12}>
                                     <Button fullWidth variant='outlined' sx={{mb:2}} onClick={() => goToExtract(navigate, balance.id)}><HomeButton>Extrato</HomeButton></Button>
-                                    <Button fullWidth variant='outlined' sx={{mb:2}}><HomeButton>Fazer Transferência</HomeButton></Button>
-                                    <Button fullWidth variant='outlined' ><HomeButton>Transferências Realizadas</HomeButton></Button>
-                                </Grid>
-                                <Grid item xs={12}>
-                                </Grid>
-                                <Grid item xs={12}>
+                                    <Button fullWidth variant='outlined' sx={{mb:2}} onClick={() => goToPayment(navigate, params.id)}><HomeButton>Fazer Transferência</HomeButton></Button>
                                 </Grid>
                             </Grid>                   
                             <Grid container justifyContent="flex-end">

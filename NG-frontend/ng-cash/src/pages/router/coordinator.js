@@ -13,3 +13,7 @@ export const goToHome = (navigate, accountId) =>{
 export const goToExtract = (navigate, id) =>{
     navigate(`/extract/${id}`)
 }
+
+export const goToPayment = (navigate, id) =>{
+    navigate(`/payment/${id}`)
+}
