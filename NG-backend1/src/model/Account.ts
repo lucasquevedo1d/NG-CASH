@@ -1,3 +1,5 @@
+import { createAccountDTO } from "../types/TypeAccountDTO"
+
 export class Account {
     constructor(
         private id:string,
@@ -13,7 +15,7 @@ export class Account {
         }
        
        
-           static toUserModel(index:any):Account{
+           static toUserModel(index:createAccountDTO):Account{
             return new Account(index.id, index.balance)
         }
 

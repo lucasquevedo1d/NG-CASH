@@ -43,6 +43,10 @@ export const Home = () => {
         })
     }
 
+    // const nameHome = () =>{
+    //     axios.get(`${BASE_URL}/`)
+    // }
+
 
     useEffect(() =>{
         balanceHome()

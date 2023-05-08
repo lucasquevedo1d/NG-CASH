@@ -46,7 +46,6 @@ export default class AccountBusiness{
 
         const findMyId = await new AccountDataBase().findbyId(accountId)
 
-
         if(!findMyId){
             throw new Error("ID de conta invalido");
         }
@@ -67,7 +66,7 @@ export default class AccountBusiness{
         const findAccount = await new AccountDataBase().findbyId(findUsername.getAccountId()) 
 
         const cashIn = findAccount.getBalance() + balance
-
+        
 
         const id = findAccount.getId()
 

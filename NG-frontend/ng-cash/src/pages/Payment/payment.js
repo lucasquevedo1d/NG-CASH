@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { ThemeProvider } from 'styled-components'
 import { Header } from '../../components/Header/Header'
 import { useNavigate, useParams } from 'react-router-dom'
-import { Box, Button, Container, CssBaseline, Grid, Paper, TextField } from '@mui/material'
+import { Box, Button, Container, CssBaseline, Grid, InputBase, InputLabel, Paper, TextField } from '@mui/material'
 import { Copyright } from '../../components/Copyright/Copyright'
 import theme from '../../constants/Theme'
 import { BackButton, ButtonEnviar, Cash, LogoImg } from './styled'
@@ -12,25 +12,25 @@ import { goToHome } from '../router/coordinator'
 import axios from 'axios'
 import { BASE_URL } from '../../constants/Url'
 import UseForm from '../../Hooks/useFrom'
+import { InputNumber } from 'primereact/inputnumber';
+
 
 
 
 export const Payment = () => {
   const navigate = useNavigate()
   const [form, onChange, clear] = UseForm({ username: "", balance: 0 })
-
-  // const [balance, setBalance] = useState(0)
-  // const [username, setUsername] = useState("")
   const params = useParams()
-
   const onSubmitPayment = async (event) => {
     // event.preventDefault()
 
     const body={
       accountId:params.id,
       username: form.username,
-      balance: form.balance
+      balance: parseInt(form.balance, 10) 
     }
+
+    console.log(body)
 
       await axios.put(`${BASE_URL}/balance`, body,{
       headers: {
@@ -38,12 +38,17 @@ export const Payment = () => {
     }
 })
       .then((res) => {
+        console.log(res)
         alert(res.data.message)
+        clear()
       })
       .catch((err) => {
+        console.log(err)
         alert(err.response.data.message)
       })
   }
+
+
 
   return (
     <ThemeProvider theme={theme} >
@@ -83,8 +88,10 @@ export const Payment = () => {
                                     type='text'
                                     onChange={onChange}
                                     value={form.username}
+                                  
+
                                     />
-                                    <TextField 
+                                    <TextField
                                     fullWidth 
                                     variant='standard' 
                                     margin='normal' 
@@ -92,7 +99,7 @@ export const Payment = () => {
                                     name="balance"
                                     type='number'
                                     onChange={onChange}
-                                    value={form.balance}
+                                    value={parseInt(form.balance, 10)}
                                     />
                                     <br></br>
                                     <Button  onClick={() => onSubmitPayment()} type="submit" fullWidth variant="contained"sx={{ mt: 3, mb: 2, bgcolor: "black", color:'white' }} color="primary">

@@ -3,7 +3,7 @@ Content-Type:application/json
 
 
 {
-    "username":"José",
+    "username":"Luiz",
     "password": "12345678"
 }
 
@@ -15,7 +15,7 @@ Content-Type:application/json
 
 
 {
-    "username":"Jhon88",
+    "username":"Jhon",
     "password": "12345678"
 }
 
@@ -35,15 +35,15 @@ Authorization: {{token}}
 
 
 {
- "accountId":"e87e06f7-7722-4f7c-b7ac-09b610be86ac",
- "username":"Lucas10",
- "balance":10
+ "accountId":"8fc400e2-dde8-46e0-9094-85b0aeae6d2e",
+ "username":"Joaquim",
+ "balance":100
 }
 
 
 
 ###
-GET http://localhost:3003/balance/e87e06f7-7722-4f7c-b7ac-09b610be86ac
+GET http://localhost:3003/balance/48e9cff2-9889-46d2-8c0d-60bf87de2b9f
 Content-Type:application/json
 Authorization: {{token}}
 
@@ -52,7 +52,7 @@ Authorization: {{token}}
 
 
 ###
-GET http://localhost:3003/transiction/5502439a-1ec3-492a-8e65-288969572b6c
+GET http://localhost:3003/transiction/48e9cff2-9889-46d2-8c0d-60bf87de2b9f
 Content-Type:application/json
 Authorization: {{token}}
 
