@@ -46,7 +46,6 @@ export default class TransictionsBusiness{
     getTransictionByDebit = async (params:transictionBydebit) =>{
         const {auth, debitTransiction} = params
 
-        console.log(params)
         if(!auth){
             throw new Error("Você precisa estar logado para realizar essa ação");
         }

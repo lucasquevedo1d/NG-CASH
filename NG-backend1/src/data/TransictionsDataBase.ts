@@ -4,7 +4,6 @@ import { BaseDataBase } from "./BaseDatabase";
 
 export class TrasictionsDataBase extends BaseDataBase{
     createTransiction = async(params:Transictions) =>{
-        console.log(params)
        await  BaseDataBase.connection("Transactions") 
        .insert({
         id:params.getId(),

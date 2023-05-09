@@ -28,7 +28,7 @@ getValue = () =>{
     return this.value
 }
 
-static toUserModel(index:any): Transictions{
+static toUserModel(index:Transictions): Transictions{
     return new Transictions(index.id, index.debitedAccountId, index.creditAccountId,index.createdAt, index.value)
 }
 }

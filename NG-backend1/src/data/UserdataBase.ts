@@ -57,7 +57,6 @@ export default class UserdataBase extends BaseDataBase {
 
     findeUserByAccountId = async (accountId:any) =>{
         try {
-            console.log("find",accountId)
             const user = await UserdataBase.connection("Users10")
             .select("*")
             .where({ accountId })

@@ -39,8 +39,6 @@ export default class AccountController {
             balance
         }
 
-        console.log("putAccount",post)
-
         await new AccountBusiness(new IdGenerator(),new HashManager(), new Authenticator(), new UserdataBase()).putAccountBusiness(post)
 
         res.status(201).send({ message: `Transação realizada com sucesso` })

@@ -12,8 +12,7 @@ import { goToHome } from '../router/coordinator'
 import axios from 'axios'
 import { BASE_URL } from '../../constants/Url'
 import UseForm from '../../Hooks/useFrom'
-import { InputNumber } from 'primereact/inputnumber';
-
+import swal from "sweetalert"
 
 
 
@@ -30,7 +29,6 @@ export const Payment = () => {
       balance: parseInt(form.balance, 10) 
     }
 
-    console.log(body)
 
       await axios.put(`${BASE_URL}/balance`, body,{
       headers: {
@@ -38,13 +36,11 @@ export const Payment = () => {
     }
 })
       .then((res) => {
-        console.log(res)
-        alert(res.data.message)
+        swal(res.data.message)
         clear()
       })
       .catch((err) => {
-        console.log(err)
-        alert(err.response.data.message)
+        swal(err.response.data.message)
       })
   }
 

@@ -18,20 +18,9 @@ import UseForm from '../../Hooks/useFrom';
 import axios from 'axios';
 import { BASE_URL } from '../../constants/Url';
 import { goToHome, goToLogin } from '../router/coordinator';
+import swal from "sweetalert"
+import { Copyright } from '../../components/Copyright/Copyright';
 
-
-function Copyright(props) {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            <Font>
-                NG.CASH/
-                {new Date().getFullYear()}
-            </Font>
-            {'Copyright © '}
-
-        </Typography>
-    );
-}
 
 export default function SignUp() {
     const [form, onChange, clear] = UseForm({ username: "", password: "" })
@@ -49,13 +38,13 @@ export default function SignUp() {
         await axios.post(`${BASE_URL}/user`, body)
             .then((res) => {
                 window.localStorage.setItem("token", res.data.token)
-                alert(res.data.message)
+                swal(res.data.message)
                 clear()
                 goToHome(navigate, res.data.accountId)
             })
 
             .catch((err) => {
-                alert(err.response.data.message)
+                swal(err.response.data.message)
             })
     }
 

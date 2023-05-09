@@ -13,11 +13,13 @@ import banco from "../../img/banco.jpg"
 import { Header } from '../../components/Header/Header';
 import logo from "../../img/NG.cash (2).png"
 import { BASE_URL } from '../../constants/Url';
-import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useProtectPage } from '../../Hooks/useProtectPage';
 import { goToExtract, goToPayment } from '../router/coordinator';
 import { Copyright } from '../../components/Copyright/Copyright';
+import axios from 'axios';
+import swal from "sweetalert"
+
 
 
 export const Home = () => {
@@ -34,18 +36,14 @@ export const Home = () => {
           }
         })
         .then((res) =>{
-            console.log(res)
             setBalance(res.data.message)
         })
 
         .catch((err) =>{
-            console.log(err)
+            swal(err.response.data.message)
         })
     }
 
-    // const nameHome = () =>{
-    //     axios.get(`${BASE_URL}/`)
-    // }
 
 
     useEffect(() =>{

@@ -20,8 +20,6 @@ export default class TransictionController {
                 accountId
             }
 
-            console.log(input)
-
             const result = await new TransictionsBusiness(new IdGenerator(), new HashManager(), new Authenticator(), new UserdataBase()).getTransictionsByName(input)
 
             res.status(200).send({ message: result })

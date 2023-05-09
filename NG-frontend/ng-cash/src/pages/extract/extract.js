@@ -16,6 +16,8 @@ import { useProtectPage } from '../../Hooks/useProtectPage';
 import { BackButton, LogoImg, SubTitleExtract, TitleExtract } from './styled';
 import { goToHome } from '../router/coordinator';
 import { Copyright } from '../../components/Copyright/Copyright';
+import swal from "sweetalert"
+
 
 
 
@@ -33,12 +35,11 @@ export const Extract = () => {
             }
         })
             .then((res) => {
-                console.log(res)
                 setExtractIn(res.data.message)
             })
 
             .catch((err) => {
-                console.log(err)
+                swal(err.response.data.message)
             })
 
     }
@@ -50,12 +51,11 @@ export const Extract = () => {
             }
         })
             .then((res) => {
-                console.log(res)
                 setExtractOut(res.data.message)
             })
 
             .catch((err) => {
-                console.log(err)
+                alert(err.response.data.message)
             })
 
     }

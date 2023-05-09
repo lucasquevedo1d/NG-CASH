@@ -15,6 +15,8 @@ import logo from "../../img/NG.cash (2).png"
 import { ButtonLogin, ButtonSignup, LogoImg, Pargraph, TituloLogin } from "./styled";
 import { goToHome, goToSignup } from "../router/coordinator";
 import { useNavigate } from "react-router-dom";
+import swal from "sweetalert"
+
 
 
 const Login = () => {
@@ -32,13 +34,12 @@ const Login = () => {
     await axios.post(`${BASE_URL}/login`, body)
       .then((res) => {
         window.localStorage.setItem("token", res.data.token)
-        alert(res.data.message)
         clear()
         goToHome(navigate, res.data.accountId)
       })
 
       .catch((err) => {
-        alert(err.response.data.message)
+        swal(err.response.data.message)
       })
   }
 
