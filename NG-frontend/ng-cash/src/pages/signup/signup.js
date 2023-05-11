@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { ThemeProvider } from '@mui/material/styles';
-import { ButtonTitulo, ButtonVoltar, Font, LogoImg, TituloSignup } from './styled';
+import { ButtonTitulo, ButtonVoltar, Font, LogoImg, PaperResponsive, TituloSignup } from './styled';
 import theme from '../../constants/Theme';
 import { Paper } from '@mui/material';
 import banco from "../../img/banco.jpg"
@@ -59,7 +59,7 @@ export default function SignUp() {
 
             }}>
                 <br></br>
-                <Paper variant="elevation" elevation={15} sx={{ mr: 65, ml: 65, mb: 5 }}>
+                <PaperResponsive variant="elevation" elevation={15} >
                     <Container component="main" maxWidth="xs" sx={{ mb: 5 }}>
                         <CssBaseline />
                         <Box
@@ -137,7 +137,7 @@ export default function SignUp() {
                         <Copyright sx={{ mt: 9, color: "black" }} />
                         <br></br>
                     </Container>
-                </Paper >
+                </PaperResponsive >
             </div>
         </ThemeProvider>
     );

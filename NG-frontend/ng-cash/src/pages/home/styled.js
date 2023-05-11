@@ -1,3 +1,4 @@
+import { Paper } from "@mui/material";
 import styled from "styled-components";
 
 
@@ -25,4 +26,6 @@ font-size: smaller;
     transition: calc(0.s);
 }
 `
+
+
 

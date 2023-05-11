@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled, {css}from "styled-components"
 
 export const LogoImg = styled.img`
 width: 200px;
@@ -8,6 +8,13 @@ export const TituloLogin = styled.h1`
 font-family: 'Russo One', sans-serif;
 color: black;
 margin-left: -350px;
+@media(max-width:400px) {
+        font-family: 'Russo One', sans-serif;
+        color: black;
+        margin-left:0;
+        margin-bottom: 50px;
+}
+
 `
 
 export const ButtonLogin = styled.p`
@@ -34,3 +41,4 @@ export const Pargraph = styled.p`
 margin-top: -20px;
 color: black;
 `
+

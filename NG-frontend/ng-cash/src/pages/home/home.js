@@ -19,6 +19,7 @@ import { goToExtract, goToPayment } from '../router/coordinator';
 import { Copyright } from '../../components/Copyright/Copyright';
 import axios from 'axios';
 import swal from "sweetalert"
+import { PaperResponsive } from '../../components/PaperResponsive/styled';
 
 
 
@@ -62,7 +63,7 @@ export const Home = () => {
 
         }}>
             <br></br>
-            <Paper variant="elevation" elevation={15} sx={{ mr: 65, ml: 65, mb: 5 }}>
+            <PaperResponsive variant="elevation" elevation={15}>
                 <Container component="main" maxWidth="xs" sx={{ mb: 5 }}>
                     <CssBaseline />
                     <Box
@@ -92,7 +93,7 @@ export const Home = () => {
                     <Copyright sx={{ mt: 9, color: "black" }} />
                     <br></br>
                 </Container>
-            </Paper >
+            </PaperResponsive >
         </div>
     </ThemeProvider>
 

@@ -13,6 +13,7 @@ import axios from 'axios'
 import { BASE_URL } from '../../constants/Url'
 import UseForm from '../../Hooks/useFrom'
 import swal from "sweetalert"
+import { PaperResponsive } from '../../components/PaperResponsive/styled'
 
 
 
@@ -51,13 +52,13 @@ export const Payment = () => {
         <Header/>
         <div style={{
             backgroundImage: `url(${banco})`,
-            height: '130vh',
+            minHeight: '130vh',
             with: '100%',
             backgroundSize: "cover"
 
         }}>
             <br></br>
-            <Paper variant="elevation" elevation={15} sx={{ mr: 65, ml: 65, mb: 5 }}>
+            <PaperResponsive variant="elevation" elevation={15}>
                 <Container component="main" maxWidth="xs" sx={{ mb: 5 }}>
                     <CssBaseline />
                     <Box
@@ -117,7 +118,7 @@ export const Payment = () => {
                     <Copyright sx={{ mt: 9, color: "black" }} />
                     <br></br>
                 </Container>
-            </Paper >
+            </PaperResponsive >
         </div>
     </ThemeProvider>
 

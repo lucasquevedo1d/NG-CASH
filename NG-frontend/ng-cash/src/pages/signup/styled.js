@@ -1,3 +1,4 @@
+import { Paper } from "@mui/material";
 import styled from "styled-components";
 
 export const TituloSignup = styled.h2`
@@ -34,4 +35,15 @@ margin-top: 50px;
 export const Font = styled.p`
 font-family: 'Russo One', sans-serif;
 font-size: smaller;
+`
+
+export const PaperResponsive = styled(Paper)`
+margin-left: 500px;
+margin-bottom: 5px; 
+width: 500px;
+@media(max-width:400px) {
+    margin: auto;
+    height: 100vh;
+    width: 300px;
+}
 `
