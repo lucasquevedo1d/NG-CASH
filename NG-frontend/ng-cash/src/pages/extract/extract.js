@@ -106,7 +106,10 @@ export const Extract = () => {
                                                     <TableRow key={row.accountId}>
                                                         <TableCell>{row.createdAt}</TableCell>
                                                         <TableCell>{row.username}</TableCell>
-                                                        <TableCell align="right">{`R$${row.value}`}</TableCell>
+                                                        <TableCell align="right">{new Intl.NumberFormat('pt-BR', {
+                                                            style: 'currency',
+                                                            currency: 'BRL'
+                                                        }).format(row.value)}</TableCell>
                                                     </TableRow>
                                                 ))}
                                             </TableBody>
@@ -125,16 +128,19 @@ export const Extract = () => {
                                                     <TableRow>
                                                         <TableCell>{row.createdAt}</TableCell>
                                                         <TableCell>{row.username}</TableCell>
-                                                        <TableCell align="right">{`R$${row.value}`}</TableCell>
+                                                        <TableCell align="right">{new Intl.NumberFormat('pt-BR', {
+                                                            style: 'currency',
+                                                            currency: 'BRL'
+                                                        }).format(row.value)}</TableCell>
                                                     </TableRow>
                                                 ))}
                                             </TableBody>
                                         </Table>
                                     </Grid>
-                                     <Grid item xs={12}>
+                                    <Grid item xs={12}>
                                     </Grid>
                                     <Grid item xs={12}>
-                                    </Grid> 
+                                    </Grid>
                                 </Grid>
                                 <br></br>
                                 <Button fullWidth variant='contained' sx={{ mb: 2 }} onClick={() => goToHome(navigate, params.id)}><BackButton>Voltar</BackButton></Button>

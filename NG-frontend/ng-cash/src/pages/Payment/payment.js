@@ -52,7 +52,7 @@ export const Payment = () => {
         <Header/>
         <div style={{
             backgroundImage: `url(${banco})`,
-            minHeight: '130vh',
+            minHeight: '140vh',
             with: '100%',
             backgroundSize: "cover"
 
@@ -73,7 +73,7 @@ export const Payment = () => {
                             
                         <Box sx={{ mt: 3 }} >
                             <Grid container spacing={2}>
-                              <Cash>$ Enviar dinheiro</Cash>
+                              <Cash>Enviar dinheiro</Cash>
                                 <Grid item xs={12}>
                                     <TextField 
                                     fullWidth 

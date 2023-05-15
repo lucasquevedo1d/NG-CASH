@@ -29,6 +29,7 @@ export const Home = () => {
     const params = useParams()
     const [balance, setBalance] = useState({})
 
+    console.log(balance)
 
     const balanceHome = () =>{
         axios.get(`${BASE_URL}/balance/${params.id}`, { 
@@ -76,7 +77,10 @@ export const Home = () => {
                     >
                         <LogoImg src={logo} />
                             <Balance>Saldo</Balance>
-                            <Value key={balance.id}>R$ {balance.balance},00</Value>
+                            <Value key={balance.id}>{new Intl.NumberFormat('pt-BR', {
+                                                            style: 'currency',
+                                                            currency: 'BRL'
+                                                        }).format(balance.balance)}</Value>
                         <Box component="form" sx={{ mt: 3 }} >
                             <Grid container spacing={2}>
                                 <Grid item xs={12}>
