@@ -43,7 +43,7 @@ Authorization: {{token}}
 
 
 ###
-GET http://localhost:3003/balance/48e9cff2-9889-46d2-8c0d-60bf87de2b9f
+GET http://localhost:3003/balance/822698f3-7a9b-4b6b-8150-4ed5400e690e
 Content-Type:application/json
 Authorization: {{token}}
 
