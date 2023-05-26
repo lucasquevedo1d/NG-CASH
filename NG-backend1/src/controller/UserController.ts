@@ -15,6 +15,8 @@ export class Usercontroller {
                 username,
                 password
             }
+
+            console.log(input)
     
             const result = await new UserBusiness(new IdGenerator(),new HashManager(), new Authenticator(),new UserdataBase()).signupBusiness(input)
             res.status(201).send({message: "Usuário criado com sucesso!",token:result.token ,accountId:result.accountId})

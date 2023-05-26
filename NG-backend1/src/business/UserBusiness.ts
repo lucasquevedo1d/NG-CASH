@@ -38,30 +38,18 @@ export class UserBusiness {
             throw new Error("Usuário já cadstrado!");
         }
 
-        const date = new Date()
-        const formatter = Intl.DateTimeFormat("pt-BR",{
-            dateStyle:"short"
-        })
-
-        const transactionDate = formatter.format(date) as any
-        const balance = 100
+       
         const accountId = await this.idGenerator.generator()
-
-        const transitionId = await this.idGenerator.generator()
-
 
 
         const id = await this.idGenerator.generator()
         const hash = await this.hashManager.createHash(password) 
 
-        const insertTransition = new Transictions(transitionId, accountId, accountId, transactionDate, balance)
-        const insertAccount = new Account(accountId, balance)
         
         const insertUser = new User(id, username, hash, accountId)
 
-        await new AccountDataBase().insertAccount(insertAccount)
+        await new AccountDataBase().accountDefault(accountId)
 
-        await new TrasictionsDataBase().createTransiction(insertTransition)
 
         const createUser = await this.userDataBase.insertUser(insertUser) 
         

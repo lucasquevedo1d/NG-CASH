@@ -12,7 +12,13 @@ export default class AccountDataBase extends BaseDataBase{
         return account
     }
 
-    
+    accountDefault = async (index:any) =>{
+        const accountDefault = await BaseDataBase.connection("Accounts")
+        .insert({
+            id:index
+        })
+        return accountDefault
+    }
     
     putAccount = async (params:postBalance) =>{
         try {
