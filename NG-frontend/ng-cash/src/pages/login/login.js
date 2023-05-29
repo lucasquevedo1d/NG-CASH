@@ -16,12 +16,24 @@ import { ButtonLogin, ButtonSignup, LogoImg, Pargraph, TituloLogin } from "./sty
 import { goToHome, goToSignup } from "../router/coordinator";
 import { useNavigate } from "react-router-dom";
 import swal from "sweetalert"
+import { useState } from "react";
+import { IconButton, InputAdornment, OutlinedInput } from "@mui/material";
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+
 
 
 
 const Login = () => {
   const [form, onChange, clear] = UseForm({ username: "", password: "" })
+  const [showPassword, setShowPassword] = useState(true)
   const navigate = useNavigate()
+
+
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword)
+  }
+
 
   const onSubmitLogin = async (event) => {
     event.preventDefault()
@@ -75,31 +87,42 @@ const Login = () => {
               <TituloLogin>Login</TituloLogin>
               <Pargraph>Seja bem vindo de volta! preencha os campos e realize o login</Pargraph>
               <Box component="form" noValidate sx={{ mt: 1 }} onSubmit={onSubmitLogin}>
-                <TextField
-                  margin="normal"
+                <OutlinedInput
+                sx={{mb:2}}
+                  margin="dense"
                   required
                   fullWidth
                   id="name"
-                  label="Nome"
                   name="username"
                   autoComplete="name"
                   autoFocus
                   variant="standard"
                   onChange={onChange}
                   value={form.username}
-
+                  placeholder='Nome'
                 />
-                <TextField
-                  margin="normal"
+                <OutlinedInput
+                  margin="dense"
                   required
                   fullWidth
                   name="password"
-                  label="Senha"
-                  type="password"
+                  type={showPassword ? 'password' : 'text'}
                   id="password"
                   variant="standard"
                   onChange={onChange}
                   value={form.password}
+                  placeholder='Senha'
+                  endAdornment={
+                    <InputAdornment position='end'>
+                      <IconButton 
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility/> }
+                      </IconButton>
+                    </InputAdornment>
+                  }
                 />
                 <Button
                   type="submit"

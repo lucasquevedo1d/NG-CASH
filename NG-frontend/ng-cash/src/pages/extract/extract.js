@@ -70,7 +70,7 @@ export const Extract = () => {
             <Header />
             <div style={{
                 backgroundImage: `url(${city})`,
-                minHeight: '170vh',
+                minHeight: '180vh',
                 with: '100%',
                 backgroundSize: "cover"
 
@@ -84,7 +84,7 @@ export const Extract = () => {
                                 marginTop: 8,
                                 display: 'flex',
                                 flexDirection: 'column',
-                                alignItems: 'center',
+                                alignItems: 'center'
                             }}
                         >
                             <LogoImg src={logo} />

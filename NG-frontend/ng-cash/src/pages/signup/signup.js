@@ -4,12 +4,10 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { ThemeProvider } from '@mui/material/styles';
 import { ButtonTitulo, ButtonVoltar, Font, LogoImg, PaperResponsive, TituloSignup } from './styled';
 import theme from '../../constants/Theme';
-import { Paper } from '@mui/material';
 import banco from "../../img/banco.jpg"
 import { Header } from '../../components/Header/Header';
 import logo from "../../img/NG.cash (2).png"
@@ -20,11 +18,23 @@ import { BASE_URL } from '../../constants/Url';
 import { goToHome, goToLogin } from '../router/coordinator';
 import swal from "sweetalert"
 import { Copyright } from '../../components/Copyright/Copyright';
+import { useState } from "react";
+import { IconButton, InputAdornment, OutlinedInput } from "@mui/material";
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+
 
 
 export default function SignUp() {
     const [form, onChange, clear] = UseForm({ username: "", password: "" })
+    const [showPassword, setShowPassword] = useState(true)
+
     const navigate = useNavigate()
+
+
+    const handleClickShowPassword = () => {
+        setShowPassword(!showPassword)
+      }
+
 
 
     const onSubmitSignUp = async (event) => {
@@ -34,7 +44,6 @@ export default function SignUp() {
             username: form.username,
             password: form.password
         }
-
         await axios.post(`${BASE_URL}/user`, body)
             .then((res) => {
                 window.localStorage.setItem("token", res.data.token)
@@ -75,18 +84,18 @@ export default function SignUp() {
                             <Box component="form" sx={{ mt: 3 }} onSubmit={onSubmitSignUp}>
                                 <Grid container spacing={2}>
                                     <Grid item xs={12}>
-                                        <TextField
+                                        <OutlinedInput
                                             margin="normal"
                                             required
                                             fullWidth
                                             id="name"
-                                            label="Nome"
                                             name="username"
                                             autoComplete="name"
                                             autoFocus
                                             variant="standard"
                                             onChange={onChange}
                                             value={form.username}
+                                            placeholder='Nome'
 
                                         />
                                     </Grid>
@@ -94,17 +103,28 @@ export default function SignUp() {
                                     </Grid>
                                     <Grid item xs={12}>
 
-                                        <TextField
+                                        <OutlinedInput
                                             margin="normal"
                                             required
                                             fullWidth
                                             name="password"
-                                            label="Senha"
-                                            type="password"
+                                            type={showPassword ? 'password' : 'text'}
                                             id="password"
                                             variant="standard"
                                             onChange={onChange}
                                             value={form.password}
+                                            placeholder='Senha'
+                                            endAdornment={
+                                                <InputAdornment position='end'>
+                                                  <IconButton 
+                                                    aria-label="toggle password visibility"
+                                                    onClick={handleClickShowPassword}
+                                                    edge="end"
+                                                  >
+                                                    {showPassword ? <VisibilityOff /> : <Visibility/> }
+                                                  </IconButton>
+                                                </InputAdornment>
+                                              }
                                         />
                                     </Grid>
                                 </Grid>                   
